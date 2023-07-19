@@ -1,11 +1,9 @@
 <script setup>
-import Header from './components/header.vue'
-import User from './components/User.vue'
+import Autenticacao from './components/Autenticacao.vue'
 </script>
 
 <template>
-  <Header />
-  <User />
+  <Autenticacao />
 
   <main></main>
 </template>
