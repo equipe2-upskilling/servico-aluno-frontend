@@ -1,11 +1,9 @@
 <script setup>
-import Autenticacao from './components/Autenticacao.vue'
+import Layout from './components/Layout.vue'
 </script>
 
 <template>
-  <Autenticacao />
-
-  <main></main>
+  <Layout />
 </template>
 
 <style scoped></style>

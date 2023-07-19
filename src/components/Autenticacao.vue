@@ -22,6 +22,8 @@ let refresh_token = ref(localStorage.getItem('refresh_token'))
 const logado = computed(() => {
   return !!access_token.value && !!refresh_token.value
 })
+
+
 function login() {
   axios
     .post('https://api.escuelajs.co/api/v1/auth/login', {
@@ -32,6 +34,7 @@ function login() {
       console.log(r.data)
       localStorage.setItem('access_token', r.data.access_token)
       localStorage.setItem('refresh_token', r.data.refresh_token)
+      
     })
     .catch((e) => console.error(e))
 }
