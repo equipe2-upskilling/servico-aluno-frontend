@@ -1,13 +1,28 @@
 <script setup>
 import { ref } from 'vue'
-import CoursesInfoCard from './CoursesInfoCard.vue'
+import router from "@/router";
+import SearchInput from "./SearchInput.vue";
+
+/*const search_input = ref(null);
+const observer = new IntersectionObserver((entries, observer) => {
+  console.log(entries)
+});*/
 
 const drawer = ref(null)
 const loading = ref(false)
+const items = ref([
+  { title: 'Pagina inicial', icon: 'mdi-home', to: "/" },
+  { title: 'Meus Cursos', icon: 'mdi-folder', to: "/meus-cursos" },
+  { title: 'Agenda', icon: 'mdi-calendar-check', to: "/agenda" },
+  { title: 'Certificados', icon: 'mdi-certificate', to: "/certificados" },
+  { title: 'Conta', icon: 'mdi-account-edit', to: "/conta" }
+]);
 
 function onClick() {
-  console.log('pesquisar')
+  console.log('pesquisar');
+  router.push('busca');
 }
+
 </script>
 
 <template>
@@ -29,89 +44,64 @@ function onClick() {
 
       <v-divider></v-divider>
 
-      <v-list density="compact" nav>
-        <v-list-item
-          prepend-icon="mdi-home"
-          title="Pagina Inicial"
-          value="paginicial"
+      <v-list dense nav>
+        <v-list-item v-for="item in items" 
+          :title="item.title"
+          :prepend-icon="item.icon"
+          :value="item.title"
+          :to="item.to"
         ></v-list-item>
-        <v-list-item prepend-icon="mdi-folder" title="Meus Cursos" value="meuscursos"></v-list-item>
-        <v-list-item prepend-icon="mdi-calendar-check" title="Agenda" value="agenda"></v-list-item>
-        <v-list-item
-          prepend-icon="mdi-certificate"
-          title="Certificados"
-          value="certificados"
-        ></v-list-item>
-        <v-list-item prepend-icon="mdi-account-edit" title="Perfil" value="perfil"></v-list-item>
-        <v-divider></v-divider>
-        <v-list-group prepend-icon="mdi-school" value="Categorias">
-          <template v-slot:activator="{ props }">
-            <v-list-item v-bind="props" title="Por Categoria"></v-list-item>
-          </template>
-          <v-list-item
-            prepend-icon="mdi-calendar-check"
-            title="Tecnologia"
-            value="tecnologia"
-          ></v-list-item>
-        </v-list-group>
       </v-list>
+
     </v-navigation-drawer>
 
     <v-app-bar>
       <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
 
-      <v-text-field
-        :loading="loading"
-        density="compact"
-        variant="solo"
-        label="Pesquisar Cursos"
-        append-inner-icon="mdi-magnify"
-        single-line
-        rounded
-        hide-details
-        @click:append-inner="onClick"
-        class="search"
-      ></v-text-field>
+      <SearchInput />
     </v-app-bar>
 
     <v-main>
-      <courses-info-card></courses-info-card>
-
-      <CoursesInfoCard />
+      <div class="main-content">
+        <router-view />
+      </div>
     </v-main>
   </v-app>
 </template>
 
 <style>
+.main-content{
+  padding: 0px 10px !important;
+}
 .search {
-  max-width: 400px;
-  margin: 0px 10px 0px 2px;
+  max-width: 400px !important;
+  margin: 0px 10px 0px 2px !important;
 }
 .v-list-item__prepend > .v-icon {
-  margin-inline-end: 10px;
+  margin-inline-end: 10px !important;
 }
 .v-navigation-drawer__content {
   color: #fff !important;
-  background-color: #3bbbc5;
-  background-image: linear-gradient(0deg, #3bbbc5 0%, #7d5ba6 100%);
+  background-color: #3bbbc5 !important;
+  background-image: linear-gradient(0deg, #3bbbc5 0%, #7d5ba6 100%) !important;
 }
 .v-navigation-drawer {
-  border: 0px;
+  border: 0px !important;
 }
 .v-toolbar {
   background-color: #d9d9d9 !important;
 }
 .v-app-bar.v-toolbar:not(.v-toolbar--flat) {
-  box-shadow: none;
+  box-shadow: none !important;
 }
 .v-list-group {
-  --prepend-width: 15px;
+  --prepend-width: 15px !important;
 }
 .v-main {
-  background-color: #e9e9e9;
+  background-color: #e9e9e9 !important;
 }
 
 .curso {
-  margin: 12px 0px;
+  margin: 12px 0px !important;
 }
 </style>
