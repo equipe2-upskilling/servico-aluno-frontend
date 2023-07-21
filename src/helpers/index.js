@@ -1,7 +1,3 @@
-import { router } from "./router";
-import { fetchWrapper } from "./fetch-wrapper";
+import { fetchWrapper } from './fetch-wrapper'
 
-export {
-    router,
-    fetchWrapper
-}
+export { fetchWrapper }

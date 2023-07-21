@@ -1,6 +1,6 @@
 <script setup>
 import { ref, reactive } from 'vue'
-import { useUsersStore } from '../../stores'
+import { useUsersStore } from '@/stores'
 
 const visible = ref(false)
 const form = ref(null)

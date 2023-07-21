@@ -1,23 +1,47 @@
 <script setup>
-import { RouterLink, RouterView } from 'vue-router'
 import { ref } from 'vue'
+import router from '@/router'
 
 import { useAuthStore } from './stores'
+import { onMounted } from 'vue'
+import { reactive } from 'vue'
 
 const authStore = useAuthStore()
 const drawer = ref(null)
-const loading = ref(false)
+
+const items = reactive([
+  { title: 'Pagina inicial', icon: 'mdi-home', to: '/', visible: true },
+  { title: 'Meus Cursos', icon: 'mdi-folder', to: '/meus-cursos', visible: !!authStore.user },
+  { title: 'Agenda', icon: 'mdi-calendar-check', to: '/agenda', visible: !!authStore.user },
+  {
+    title: 'Certificados',
+    icon: 'mdi-certificate',
+    to: '/certificados',
+    visible: !!authStore.user
+  },
+  { title: 'Conta', icon: 'mdi-account-edit', to: '/conta', visible: !!authStore.user },
+  { title: 'Entrar', icon: 'mdi-login', to: '/login', visible: !authStore.user }
+])
+onMounted(() => console.table(items.value))
 
 function onClick() {
   console.log('pesquisar')
+  router.push('busca')
 }
 </script>
 
 <template>
   <v-app id="inspire">
-    <v-navigation-drawer v-model="drawer">
+    <v-navigation-drawer
+      v-model="drawer"
+      v-bind:style="{
+        backgroundImage:
+          'url(https://cdn.pixabay.com/photo/2014/09/05/18/32/old-books-436498_1280.jpg)'
+      }"
+    >
       <v-list v-show="authStore.user">
         <v-list-item
+          v-show="authStore.user"
           prepend-avatar="https://avatarfiles.alphacoders.com/261/thumb-261943.jpg"
           title="Homer Simpson"
           subtitle="duh@gmail.com"
@@ -26,99 +50,68 @@ function onClick() {
           <a @click="authStore.logout()">Logout</a>
         </v-list-item>
       </v-list>
+
       <v-divider></v-divider>
 
-      <v-list density="compact" nav>
-        <RouterLink class="custom-router-link" to="/Dashboard">
-          <v-list-item
-            prepend-icon="mdi-home"
-            title="Pagina Inicial"
-            value="paginicial"
-          ></v-list-item
-        ></RouterLink>
-        <div v-show="authStore.user">
-          <v-list-item
-            prepend-icon="mdi-folder"
-            title="Meus Cursos"
-            value="meuscursos"
-          ></v-list-item>
-          <v-list-item
-            prepend-icon="mdi-calendar-check"
-            title="Agenda"
-            value="agenda"
-          ></v-list-item>
-          <v-list-item
-            prepend-icon="mdi-certificate"
-            title="Certificados"
-            value="certificados"
-          ></v-list-item>
-          <v-list-item prepend-icon="mdi-account-edit" title="Perfil" value="perfil"></v-list-item>
-        </div>
-        <v-divider></v-divider>
-        <v-list-group prepend-icon="mdi-school" value="Categorias">
-          <template v-slot:activator="{ props }">
-            <v-list-item v-bind="props" title="Por Categoria"></v-list-item>
-          </template>
-          <v-list-item
-            prepend-icon="mdi-calendar-check"
-            title="Tecnologia"
-            value="tecnologia"
-          ></v-list-item>
-        </v-list-group>
+      <v-list dense nav>
+        <v-list-item
+          v-for="item in items"
+          :title="item.title"
+          :prepend-icon="item.icon"
+          :value="item.title"
+          :to="item.to"
+          v-show="item.visible"
+        ></v-list-item>
       </v-list>
     </v-navigation-drawer>
-    <v-app-bar>
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
 
-      <v-text-field
-        :loading="loading"
-        density="compact"
-        variant="solo"
-        label="Pesquisar Cursos"
-        append-inner-icon="mdi-magnify"
-        single-line
-        rounded
-        hide-details
-        @click:append-inner="onClick"
-        class="search"
-      ></v-text-field>
+    <v-app-bar>
+      <v-app-bar-nav-icon @click="drawer = !drawer"></v-app-bar-nav-icon>
+
+      <SearchInput />
     </v-app-bar>
+
     <v-main>
-      <RouterView></RouterView>
+      <div class="main-content">
+        <router-view />
+      </div>
     </v-main>
   </v-app>
 </template>
 
-<style scoped>
+<style>
+.main-content {
+  padding: 0px 10px !important;
+}
 .search {
-  max-width: 400px;
-  margin: 0px 10px 0px 2px;
+  max-width: 400px !important;
+  margin: 0px 10px 0px 2px !important;
 }
 .v-list-item__prepend > .v-icon {
-  margin-inline-end: 10px;
+  margin-inline-end: 10px !important;
 }
 .v-navigation-drawer__content {
   color: #fff !important;
-  background-color: #3bbbc5;
-  background-image: linear-gradient(0deg, #3bbbc5 0%, #7d5ba6 100%);
+  background-color: #3bbbc5 !important;
+  background-image: linear-gradient(0deg, #3bbbc5 0%, #7d5ba6 100%) !important;
 }
 .v-navigation-drawer {
-  border: 0px;
+  border: 0px !important;
 }
 .v-toolbar {
   background-color: #d9d9d9 !important;
 }
 .v-app-bar.v-toolbar:not(.v-toolbar--flat) {
-  box-shadow: none;
+  box-shadow: none !important;
 }
 .v-list-group {
-  --prepend-width: 15px;
+  --prepend-width: 15px !important;
 }
 .v-main {
-  background-color: #e9e9e9;
+  background-color: #e9e9e9 !important;
 }
-.custom-router-link {
-  text-decoration: none; /* Remover o sublinhado */
-  color: inherit; /* Herdar a cor do texto do elemento pai (sem cor azul padrão) */
+
+.curso {
+  margin: 12px 0px !important;
 }
 </style>

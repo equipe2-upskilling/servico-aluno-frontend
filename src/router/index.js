@@ -1,25 +1,44 @@
-import { createRouter, createWebHistory } from 'vue-router';
+import { createRouter, createWebHistory } from 'vue-router'
+import { useAuthStore } from '../stores'
 
-// Import your Vue components that represent different pages
-import Home from '../views/Home.vue';
-import MyCourses from '../views/MyCourses.vue';
-import Schedule from '../views/Schedule.vue';
-import Certificates from '../views/Certificates.vue';
-import Account from '../views/Account.vue';
-import Search from '../views/Search.vue';
+import {
+  LoginView,
+  RegisterView,
+  HomeView,
+  MyCoursesView,
+  ScheduleView,
+  CertificatesView,
+  AccountView,
+  SearchView
+} from '@/views'
 
 const routes = [
-  { path: '/', component: Home },
-  { path: '/meus-cursos', component: MyCourses },
-  { path: '/agenda', component: Schedule },
-  { path: '/certificados', component: Certificates },
-  { path: '/conta', component: Account },
-  { path: '/busca', component: Search },
-];
+  { path: '/', component: HomeView },
+  { path: '/meus-cursos', component: MyCoursesView },
+  { path: '/agenda', component: ScheduleView },
+  { path: '/certificados', component: CertificatesView },
+  { path: '/conta', component: AccountView },
+  { path: '/busca', component: SearchView },
+  { path: '/login', component: LoginView },
+  { path: '/dashboard', component: HomeView },
+  { path: '/register', component: RegisterView }
+]
 
 const router = createRouter({
-  history: createWebHistory(),
-  routes,
-});
+  history: createWebHistory(import.meta.env.BASE_URL),
+  linkActiveClass: 'active',
+  routes
+})
 
-export default router;
+router.beforeEach(async (to) => {
+  const publicPages = ['/login', '/register', '/']
+  const authRequired = !publicPages.includes(to.path)
+  const auth = useAuthStore()
+
+  if (authRequired && !auth.user) {
+    auth.returnUrl = to.fullPath
+    return '/login'
+  }
+})
+
+export default router
