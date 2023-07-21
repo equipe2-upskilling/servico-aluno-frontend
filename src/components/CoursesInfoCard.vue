@@ -5,7 +5,7 @@ const show = ref(false)
 </script>
 
 <template>
-  <v-card class="mx-auto curso" max-width="344">
+  <v-card class="ma-4 " width="330">
     <v-img src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg" height="200px" cover></v-img>
 
     <v-card-title> Curso tal </v-card-title>
@@ -35,4 +35,4 @@ const show = ref(false)
   </v-card>
 </template>
 
-<style lang="scss" scoped></style>
+<style scoped></style>

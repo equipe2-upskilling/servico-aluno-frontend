@@ -13,17 +13,16 @@ export const useAuthStore = defineStore({
     }),
     actions: {
         async login(email, password) {
-            const confirmPassword = password
-            const user = await fetchWrapper.post(`${baseUrl}/login`, { email, password, confirmPassword });
-            console.log(email,password,confirmPassword)
-            // update pinia state
+            
+            const user = await fetchWrapper.post(`${baseUrl}/login`, { email, password });
+              
             this.user = user;
 
-            // store user details and jwt in local storage to keep user logged in between page refreshes
+       
             localStorage.setItem('user', JSON.stringify(user));
 
-            // redirect to previous url or default to home page
-            router.push(this.returnUrl || '/');
+            
+            router.push(this.returnUrl || '/Dashboard');
         },
         logout() {
             this.user = null;
