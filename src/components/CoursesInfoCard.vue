@@ -2,37 +2,47 @@
 import { ref } from 'vue'
 
 const show = ref(false)
+
+const props = defineProps(['title', 'teacher', 'descr', 'acquired']);
+
+let btn_text = "";
+let btn_color = "";
+if(props.acquired) {
+  btn_text = "Continuar";
+  btn_color = "green-darken-2";
+}else {
+  btn_text = "Inscrever";
+  btn_color = "indigo-darken-2";
+}
+
 </script>
 
 <template>
-  <v-card class="ma-4 " width="330">
+  <v-card class="mx-auto course" max-width="300" min-width="250">
     <v-img src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg" height="200px" cover></v-img>
 
-    <v-card-title> Curso tal </v-card-title>
+    <v-card-title> {{props.title}} </v-card-title>
 
-    <v-card-subtitle> Jorge hhh </v-card-subtitle>
+    <v-card-subtitle> {{props.teacher}} </v-card-subtitle>
 
     <v-card-actions>
-      <v-btn color="orange-lighten-2" variant="text"> Ver detalhes </v-btn>
-
-      <v-spacer></v-spacer>
-
-      <v-btn :icon="show ? 'mdi-chevron-up' : 'mdi-chevron-down'" @click="show = !show"></v-btn>
+      <v-btn 
+        block
+        class="text-none mb-4"
+        :color="btn_color"
+        size="x-large"
+        variant="flat"
+        outlined> {{ btn_text }} </v-btn>
     </v-card-actions>
-
-    <v-expand-transition>
-      <div v-show="show">
-        <v-divider></v-divider>
-
-        <v-card-text>
-          I'm a thing. But, like most politicians, he promised more than he could deliver. You won't
-          have time for sleeping, soldier, not with all the bed making you'll be doing. Then we'll
-          go with that data file! Hey, you add a one and two zeros to that or we walk! You're going
-          to do his laundry? I've got to find a way to escape.
-        </v-card-text>
-      </div>
-    </v-expand-transition>
   </v-card>
 </template>
 
-<style scoped></style>
+<style>
+.course .v-btn {
+  margin-bottom: 0px !important;
+  padding: 0px !important;
+}
+.course .v-card-title {
+  padding-bottom: 0px !important;
+}
+</style>
