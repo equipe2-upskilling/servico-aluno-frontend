@@ -1,3 +1,3 @@
-import { fetchWrapper } from './fetch-wrapper'
+import { fetchWrapper, objectToQueryString } from './fetch-wrapper'
 
-export { fetchWrapper }
+export { fetchWrapper, objectToQueryString }

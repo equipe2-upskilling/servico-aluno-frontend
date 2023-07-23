@@ -11,12 +11,22 @@ const courses = [
 <template>
   <v-card class="teste">
     <v-row class="row-courses">
-      <v-col cols="15" sm="5" md="4" lg="3" xl="2" xxl="1" v-for="course in courses" :key="course">
+      <v-col
+        cols="15"
+        sm="5"
+        md="4"
+        lg="3"
+        xl="2"
+        xxl="1"
+        v-for="(course, index) in courses"
+        :key="index"
+      >
         <courses-info-card
           :title="course.title"
           :teacher="course.teacher"
           :descr="course.descr"
           :acquired="true"
+          :index="index"
         ></courses-info-card>
       </v-col>
     </v-row>

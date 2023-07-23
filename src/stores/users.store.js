@@ -18,7 +18,11 @@ export const useUsersStore = defineStore({
         password,
         confirmPassword
       })
-      this.user = user
+      this.user = {
+        id: 12,
+        name: 'Raissa',
+        email: this.user.email
+      }
 
       localStorage.setItem('user', JSON.stringify(user))
 

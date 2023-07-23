@@ -9,7 +9,8 @@ import {
   ScheduleView,
   CertificatesView,
   AccountView,
-  SearchView
+  SearchView,
+  CourseAccessView
 } from '@/views'
 
 const routes = [
@@ -21,7 +22,8 @@ const routes = [
   { path: '/busca', component: SearchView },
   { path: '/login', component: LoginView },
   { path: '/dashboard', component: HomeView },
-  { path: '/register', component: RegisterView }
+  { path: '/register', component: RegisterView },
+  { path: '/curso-acesso/:id', component: CourseAccessView }
 ]
 
 const router = createRouter({
