@@ -6,6 +6,8 @@ import CertificatesView from './CertificatesView.vue'
 import HomeView from './HomeView.vue'
 import ScheduleView from './ScheduleView.vue'
 import SearchView from './SearchView.vue'
+import EnrollmentView from './EnrollmentView.vue'
+import PaymentView from './PaymentView.vue'
 
 export {
   LoginView,
@@ -15,5 +17,7 @@ export {
   CertificatesView,
   HomeView,
   ScheduleView,
-  SearchView
+  SearchView,
+  EnrollmentView,
+  PaymentView
 }

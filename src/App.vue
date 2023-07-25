@@ -5,6 +5,7 @@ import router from '@/router'
 import { useAuthStore } from './stores'
 import { onMounted } from 'vue'
 import { reactive } from 'vue'
+import SearchInput from './components/SearchInput.vue';
 
 const authStore = useAuthStore()
 const drawer = ref(null)
@@ -12,7 +13,7 @@ const drawer = ref(null)
 const items = reactive([
   { title: 'Pagina inicial', icon: 'mdi-home', to: '/', visible: true },
   { title: 'Meus Cursos', icon: 'mdi-folder', to: '/meus-cursos', visible: !!authStore.user },
-  { title: 'Agenda', icon: 'mdi-calendar-check', to: '/agenda', visible: !!authStore.user },
+  //{ title: 'Agenda', icon: 'mdi-calendar-check', to: '/agenda', visible: !!authStore.user },
   {
     title: 'Certificados',
     icon: 'mdi-certificate',
@@ -22,12 +23,8 @@ const items = reactive([
   { title: 'Conta', icon: 'mdi-account-edit', to: '/conta', visible: !!authStore.user },
   { title: 'Entrar', icon: 'mdi-login', to: '/login', visible: !authStore.user }
 ])
-onMounted(() => console.table(items.value))
+//onMounted(() => console.table(items.value))
 
-function onClick() {
-  console.log('pesquisar')
-  router.push('busca')
-}
 </script>
 
 <template>
@@ -46,9 +43,13 @@ function onClick() {
           title="Homer Simpson"
           subtitle="duh@gmail.com"
         ></v-list-item>
-        <v-list-item>
-          <a @click="authStore.logout()">Logout</a>
-        </v-list-item>
+        <div style="text-align: center; padding: 6px">
+          <v-btn
+            prepend-icon="mdi-logout"
+            @click="authStore.logout()">
+            Sair
+          </v-btn>
+        </div>
       </v-list>
 
       <v-divider></v-divider>

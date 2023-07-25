@@ -22,11 +22,13 @@ export const useAuthStore = defineStore({
       localStorage.setItem('user', JSON.stringify(user))
 
       router.push(this.returnUrl || '/')
+      //router.go()
     },
     logout() {
       this.user = null
       localStorage.removeItem('user')
       router.push('/login')
+      router.go(0)
     }
   }
 })

@@ -1,5 +1,8 @@
 <script setup>
+    import { useAuthStore } from '../stores'
     import CoursesInfoCard from '../components/CoursesInfoCard.vue'
+
+    const authStore = useAuthStore()
     const courses = [
         { title: "Matrizes", teacher: "Joe Montana",  descr: "teste matrizes" },
         { title: ".NET Core", teacher: "Danilo",  descr: "teste dotnet" },
@@ -22,50 +25,52 @@
 </script>
 
 <template>
-    <div class="teste">
-        <div class="title">Meus estudos recentes</div>
-        <v-row class="row-courses">
-            <v-col cols="15" sm="5" md="4" lg="3" xl="2" xxl="1" v-for="course in courses">
-                <courses-info-card :title="course.title" :teacher="course.teacher" :descr="course.descr" :acquired=true></courses-info-card>
-            </v-col>
-        </v-row>
-    </div>
-    <div class="recommended">
-        <div class="title">
-            <div>
-                <v-icon aria-hidden="false" size="small">mdi-heart</v-icon>
-                <span>Recomendado para voce</span>
+    <v-container>
+        <div class="recommended">
+            <div class="title">
+                <div>
+                    <v-icon aria-hidden="false" size="small">mdi-heart</v-icon>
+                    <span>Recomendado para você</span>
+                </div>
+                <div>Veja o que separamos para você de acordo com os seus interesses</div>
             </div>
-            <div>Veja o que separamos para voce de acordo com os seus interesses</div>
+            <v-sheet class="mx-auto">
+                <v-slide-group
+                    class=""
+                    show-arrows
+                    v-slot="{ active, toggle }">
+                    <v-slide-group-item v-for="recommended in recommendeds">
+                        <courses-info-card :title="recommended.title" :teacher="recommended.teacher" :descr="recommended.descr" :acquired=false style="margin: 6px !important;"></courses-info-card>
+                    </v-slide-group-item>
+                </v-slide-group>
+            </v-sheet>    
         </div>
-        <v-sheet class="mx-auto">
-            <v-slide-group
-                class=""
-                show-arrows
-                v-slot="{ active, toggle }">
-                <v-slide-group-item v-for="recommended in recommendeds">
-                    <courses-info-card :title="recommended.title" :teacher="recommended.teacher" :descr="recommended.descr" :acquired=false style="margin: 6px !important;"></courses-info-card>
-                </v-slide-group-item>
-            </v-slide-group>
-        </v-sheet>    
-    </div>
-    <!--v-card class="teste">
-        <div class="title">Recomendado para voce</div>
-        <v-row class="row-courses">
-            <v-col cols="15" sm="5" md="4" lg="3" xl="2" xxl="1" v-for="recommended in recommendeds">
-                <courses-info-card :title="recommended.title" :teacher="recommended.teacher" :descr="recommended.descr" :acquired=false></courses-info-card>
-            </v-col>
-        </v-row>
-    </v-card-->
+        <div class="recently" v-show="authStore.user">
+            <div class="title">
+                <div>
+                    <v-icon aria-hidden="false" size="small">mdi-school</v-icon>
+                    <span>Cursados recentemente</span>
+                </div>
+                <div>Continue estudando de onde você parou</div>
+            </div>
+            <v-row class="row-courses">
+                <v-col cols="15" sm="5" md="4" lg="3" xl="2" xxl="1" v-for="course in courses">
+                    <courses-info-card :title="course.title" :teacher="course.teacher" :descr="course.descr" :acquired=true></courses-info-card>
+                </v-col>
+            </v-row>
+        </div>
+    </v-container>
 </template>
 
 <style>
+    .v-container { margin: 0px 12px !important }
     .v-slide-group__content {
         justify-content: center !important;
     }
     .title{
         font-size: 20px; font-weight: bold; margin-bottom: 12px;
     }
+    .row-courses { margin: 0px 2px !important; }
     .row-courses > div {
         padding-top: 12px !important;
         padding-left: 6px !important;
@@ -81,23 +86,24 @@
         background-color: #4158D0;
         padding-bottom: 26px !important;        
     }
-    .recommended .v-sheet {
+    .recommended .v-sheet, .recently .v-sheet {
         background-color: transparent !important;
         /*border: 1px solid #DDD;*/
         margin-bottom: 10px;
     }
-    .recommended .title { color: #303F9F; }
-    .recommended .title > div:first-child{
-        margin-top: 16px;
+    .recommended .title { color: #222; }
+    .recently .title { color: #222; }
+    .recommended .title > div:first-child, .recently .title > div:first-child{
+        margin-top: 4px;
         padding: 6px 6px 0px 6px !important;
     }
-    .recommended .title > div:first-child .v-icon{
+    .recommended .title > div:first-child .v-icon, .recently .title > div:first-child .v-icon{
         padding-right: 10px;
     }
-    .recommended .title > div:first-child span{
+    .recommended .title > div:first-child span, .recently .title > div:first-child span{
         vertical-align: middle;
     }
-    .recommended .title > div:last-child{
+    .recommended .title > div:last-child, .recently .title > div:last-child{
         padding: 0px 6px !important;
         font-size: 14px;
         font-weight: normal;
