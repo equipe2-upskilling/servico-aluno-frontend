@@ -36,7 +36,7 @@ const recommendeds = [
       </div>
       <v-sheet class="mx-auto">
         <v-slide-group class="" show-arrows v-slot="{ active, toggle }">
-          <v-slide-group-item v-for="recommended in recommendeds">
+          <v-slide-group-item v-for="recommended in recommendeds" :key="recommended">
             <courses-info-card
               :title="recommended.title"
               :teacher="recommended.teacher"
@@ -57,7 +57,16 @@ const recommendeds = [
         <div>Continue estudando de onde você parou</div>
       </div>
       <v-row class="row-courses">
-        <v-col cols="15" sm="5" md="4" lg="3" xl="2" xxl="1" v-for="course in courses">
+        <v-col
+          cols="15"
+          sm="5"
+          md="4"
+          lg="3"
+          xl="2"
+          xxl="1"
+          v-for="course in courses"
+          :key="course"
+        >
           <courses-info-card
             :title="course.title"
             :teacher="course.teacher"
@@ -82,7 +91,6 @@ const recommendeds = [
 .row-courses > div {
   padding-top: 12px !important;
   padding-left: 6px !important;
-  padding-right: 6px !important;
   padding-bottom: 0px !important;
 }
 .teste {
@@ -91,7 +99,6 @@ const recommendeds = [
   /*width: 100% !important;*/
   margin: 10px 0px !important;
   padding: 20px !important;
-  background-color: #4158d0;
   padding-bottom: 26px !important;
 }
 .recommended .v-sheet {

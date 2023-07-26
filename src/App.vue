@@ -1,11 +1,9 @@
 <script setup>
 import { ref } from 'vue'
-import router from '@/router'
 
 import { useAuthStore } from './stores'
-import { onMounted } from 'vue'
 import { reactive } from 'vue'
-import SearchInput from './components/SearchInput.vue';
+import SearchInput from './components/SearchInput.vue'
 
 const authStore = useAuthStore()
 const drawer = ref(null)
@@ -23,7 +21,6 @@ const items = reactive([
   { title: 'Conta', icon: 'mdi-account-edit', to: '/conta', visible: !!authStore.user },
   { title: 'Entrar', icon: 'mdi-login', to: '/login', visible: !authStore.user }
 ])
-
 </script>
 
 <template>
@@ -43,11 +40,7 @@ const items = reactive([
           subtitle="duh@gmail.com"
         ></v-list-item>
         <div style="text-align: center; padding: 6px">
-          <v-btn
-            prepend-icon="mdi-logout"
-            @click="authStore.logout()">
-            Sair
-          </v-btn>
+          <v-btn prepend-icon="mdi-logout" @click="authStore.logout()"> Sair </v-btn>
         </div>
       </v-list>
 
@@ -56,6 +49,7 @@ const items = reactive([
       <v-list dense nav>
         <v-list-item
           v-for="item in items"
+          :key="item"
           :title="item.title"
           :prepend-icon="item.icon"
           :value="item.title"
