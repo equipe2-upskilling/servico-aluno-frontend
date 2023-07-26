@@ -1,3 +1,4 @@
+/* eslint-disable no-debugger */
 import { useAuthStore } from '@/stores'
 
 export const fetchWrapper = {

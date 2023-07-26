@@ -6,7 +6,8 @@ const visible = ref(false)
 const form = ref(null)
 const username = ref('')
 const password = ref('')
-const confirmPassword = ref('')
+const name = ref('')
+const address = ref('')
 
 const rules = reactive({
   required: (value) => !!value || 'Obrigatório.',
@@ -15,6 +16,8 @@ const rules = reactive({
       /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
     return pattern.test(value) || 'E-mail invalida'
   },
+  nameLength: (value) => value.length >= 5 || 'O nome do usuário deve ter pelo menos 5 caracteres',
+  addressLength: (value) => value.length >= 5 || 'O endereço deve ter pelo menos 5 caracteres',
   passwordLength: (value) => value.length >= 6 || 'A senha deve ter pelo menos 6 caracteres.',
   passwordNonAlphanumeric: (value) =>
     /[^\w\s]/.test(value) || 'A senha deve conter pelo menos um caractere não alfanumérico.',
@@ -30,7 +33,7 @@ function onSubmit() {
   const userStore = useUsersStore()
 
   return userStore
-    .register(username.value, password.value, confirmPassword.value)
+    .register(username.value, password.value, name.value, address.value)
     .catch((error) => console.error(error))
 }
 </script>
@@ -39,9 +42,31 @@ function onSubmit() {
   <div>
     <div class="mt-6">
       <v-card class="mx-auto pa-12 pb-8" elevation="8" max-width="448" rounded="lg">
-        <div class="text-subtitle-1 text-medium-emphasis">E-mail</div>
-
         <v-form v-model="form" @submit.prevent="onSubmit" id="login">
+          <div class="text-subtitle-1 text-medium-emphasis">Nome</div>
+          <v-text-field
+            density="comfortable"
+            placeholder="Nome do usuário"
+            :rules="[rules.required, rules.nameLength]"
+            prepend-inner-icon="mdi-account-box-outline"
+            variant="outlined"
+            name="name"
+            v-model="name"
+            hint="Digite nome completo do usuário"
+            persistent-hint
+          ></v-text-field>
+          <div class="text-subtitle-1 text-medium-emphasis">Endereço</div>
+          <v-text-field
+            density="comfortable"
+            placeholder="Endereço do usuário"
+            :rules="[rules.addressLength]"
+            prepend-inner-icon="mdi-map-marker-outline"
+            variant="outlined"
+            name="address"
+            v-model="address"
+            hint="Digite o endereço do usuário"
+          ></v-text-field>
+          <div class="text-subtitle-1 text-medium-emphasis">E-mail</div>
           <v-text-field
             density="comfortable"
             placeholder="Email do usuário"

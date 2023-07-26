@@ -4,7 +4,8 @@ import { fetchWrapper } from '@/helpers'
 
 import router from '../router'
 
-const baseUrl = `${import.meta.env.VITE_API_URL}`
+// const baseUrl = `${import.meta.env.VITE_API_URL}`
+const baseUrl = `https://localhost:7194`
 
 export const useAuthStore = defineStore({
   id: 'auth',
@@ -14,12 +15,12 @@ export const useAuthStore = defineStore({
     returnUrl: null
   }),
   actions: {
-    async login(email, password) {
-      const user = await fetchWrapper.post(`${baseUrl}/login`, { email, password })
+    async login(username, password) {
+      const user = await fetchWrapper.post(`${baseUrl}/login`, { username, password })
 
-      this.user = user
+      this.user = user.simpleLogged
 
-      localStorage.setItem('user', JSON.stringify(user))
+      localStorage.setItem('user', JSON.stringify(user.token))
 
       router.push(this.returnUrl || '/')
       //router.go()

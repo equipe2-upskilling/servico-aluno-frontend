@@ -12,20 +12,17 @@ export const useUsersStore = defineStore({
     user: {}
   }),
   actions: {
-    async register(email, password, confirmPassword) {
-      const user = await fetchWrapper.post(`${baseUrl}/register`, {
-        email,
+    async register(username, password, name, address) {
+      const user = await fetchWrapper.post(`${baseUrl}/CreateStudentWithLogin`, {
+        username,
         password,
-        confirmPassword
+        name,
+        address
       })
-      this.user = {
-        id: 12,
-        name: 'Raissa',
-        email: this.user.email
-      }
 
-      localStorage.setItem('user', JSON.stringify(user))
+      this.user = user
 
+        console.log("", user)
       router.push(this.returnUrl || '/')
     }
   }
