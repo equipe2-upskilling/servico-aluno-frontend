@@ -8,6 +8,7 @@ import ScheduleView from './ScheduleView.vue'
 import SearchView from './SearchView.vue'
 import EnrollmentView from './EnrollmentView.vue'
 import PaymentView from './PaymentView.vue'
+import CourseAccessView from './CourseAccessView.vue'
 
 export {
   LoginView,
@@ -19,5 +20,6 @@ export {
   ScheduleView,
   SearchView,
   EnrollmentView,
-  PaymentView
+  PaymentView,
+  CourseAccessView
 }

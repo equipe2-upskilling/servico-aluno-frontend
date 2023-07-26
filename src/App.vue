@@ -23,7 +23,6 @@ const items = reactive([
   { title: 'Conta', icon: 'mdi-account-edit', to: '/conta', visible: !!authStore.user },
   { title: 'Entrar', icon: 'mdi-login', to: '/login', visible: !authStore.user }
 ])
-//onMounted(() => console.table(items.value))
 
 </script>
 
