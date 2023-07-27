@@ -19,7 +19,6 @@
         <v-col>
           <RouterLink class="text-blue text-decoration-none" to="/inscricao">
               <v-btn 
-                  block
                   class="text-none mb-4"
                   color="indigo-darken-2"
                   size="x-large"
@@ -30,7 +29,6 @@
         <v-col>
           <RouterLink class="text-blue text-decoration-none" to="/gerar-boleto">
               <v-btn 
-                  block
                   class="text-none mb-4"
                   color="indigo-darken-2"
                   size="x-large"

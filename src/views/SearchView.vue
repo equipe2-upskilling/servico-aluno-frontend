@@ -1,12 +1,31 @@
 <script setup>
+  import { onMounted, ref, computed } from 'vue'
+  import { useAuthStore, useCoursesStore } from '@/stores'
+  import { useRoute } from 'vue-router'
   import CoursesInfoCard from '../components/CoursesInfoCard.vue'
-  const courses = [
+
+  /*const courses = [
       { title: "Matrizes", teacher: "Joe Montana",  descr: "teste matrizes", acquired: true },
       { title: ".NET Core", teacher: "Danilo",  descr: "teste dotnet", acquired: false },
       { title: "Vue 3", teacher: "Mario",  descr: "teste vue 3...", acquired: false },
-  ];
+  ];*/
   let total = 5;
   let searchText = "teste";
+
+  const coursesStore = useCoursesStore()
+  const authStore = useAuthStore()
+
+  const courses = computed(() => coursesStore.courses)
+
+  console.log(courses);
+
+  function buscarCursos() {
+    coursesStore.getCourses()
+  }
+
+  onMounted(() => {
+    buscarCursos()
+  })
 </script>
 
 <template>
@@ -15,7 +34,7 @@
     <v-divider></v-divider>
     <v-row class="row-courses">
       <v-col cols="15" sm="5" md="4" lg="3" xl="2" xxl="1" v-for="course in courses">
-        <courses-info-card :title="course.title" :teacher="course.teacher" :descr="course.descr" :acquired="course.acquired" class="course-card"></courses-info-card>
+        <courses-info-card :title="course.name" :teacher="course.teacher" :descr="course.descr" :acquired="course.acquired" class="course-card"></courses-info-card>
       </v-col>
     </v-row>
   </v-container>

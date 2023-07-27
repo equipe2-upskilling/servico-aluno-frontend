@@ -32,7 +32,7 @@ const recommendeds = [
           <v-icon aria-hidden="false" size="small">mdi-heart</v-icon>
           <span>Recomendado para você</span>
         </div>
-        <div>Veja o que separamos para você de acordo com os seus interesses</div>
+        <div class="descr">Veja o que separamos para você de acordo com os seus interesses</div>
       </div>
       <v-sheet class="mx-auto">
         <v-slide-group class="" show-arrows v-slot="{ active, toggle }">
@@ -54,7 +54,7 @@ const recommendeds = [
           <v-icon aria-hidden="false" size="small">mdi-school</v-icon>
           <span>Cursados recentemente</span>
         </div>
-        <div>Continue estudando de onde você parou</div>
+        <div class="descr">Continue estudando de onde você parou</div>
       </div>
       <v-row class="row-courses">
         <v-col
@@ -64,7 +64,7 @@ const recommendeds = [
           lg="3"
           xl="2"
           xxl="1"
-          v-for="course in courses"
+          v-for="(course, index) in courses"
           :key="course"
         >
           <courses-info-card
@@ -72,6 +72,7 @@ const recommendeds = [
             :teacher="course.teacher"
             :descr="course.descr"
             :acquired="true"
+            :index="index"
           ></courses-info-card>
         </v-col>
       </v-row>
@@ -80,48 +81,49 @@ const recommendeds = [
 </template>
 
 <style>
+.v-container { margin: 0px 12px !important }
 .v-slide-group__content {
-  justify-content: center !important;
+    justify-content: center !important;
 }
-.title {
-  font-size: 20px;
-  font-weight: bold;
-  margin-bottom: 12px;
+.title{
+    font-size: 20px; font-weight: bold; margin-bottom: 12px;
 }
+.row-courses { margin: 0px 2px !important; }
 .row-courses > div {
-  padding-top: 12px !important;
-  padding-left: 6px !important;
-  padding-bottom: 0px !important;
+    padding-top: 12px !important;
+    padding-left: 6px !important;
+    padding-right: 6px !important;
+    padding-bottom: 0px !important;
 }
 .teste {
-  border: 1px solid #d6d6d6 !important;
-  background-color: #dfdfdf !important;
-  /*width: 100% !important;*/
-  margin: 10px 0px !important;
-  padding: 20px !important;
-  padding-bottom: 26px !important;
+    border: 1px solid #D6D6D6 !important;
+    background-color: #DFDFDF !important;
+    /*width: 100% !important;*/
+    margin: 10px 0px !important;
+    padding: 20px !important;
+    background-color: #4158D0;
+    padding-bottom: 26px !important;        
 }
-.recommended .v-sheet {
-  background-color: transparent !important;
-  /*border: 1px solid #DDD;*/
-  margin-bottom: 10px;
+.recommended .v-sheet, .recently .v-sheet {
+    background-color: transparent !important;
+    /*border: 1px solid #DDD;*/
+    margin-bottom: 10px;
 }
-.recommended .title {
-  color: #303f9f;
+.recommended .title { color: #222; }
+.recently .title { color: #222; }
+.recommended .title > div:first-child, .recently .title > div:first-child{
+    margin-top: 4px;
+    padding: 6px 6px 0px 6px !important;
 }
-.recommended .title > div:first-child {
-  margin-top: 16px;
-  padding: 6px 6px 0px 6px !important;
+.recommended .title > div:first-child .v-icon, .recently .title > div:first-child .v-icon{
+    padding-right: 10px;
 }
-.recommended .title > div:first-child .v-icon {
-  padding-right: 10px;
+.recommended .title > div:first-child span, .recently .title > div:first-child span{
+    vertical-align: middle;
 }
-.recommended .title > div:first-child span {
-  vertical-align: middle;
-}
-.recommended .title > div:last-child {
-  padding: 0px 6px !important;
-  font-size: 14px;
-  font-weight: normal;
+.recommended .title > div:last-child, .recently .title > div:last-child{
+    padding: 0px 6px !important;
+    font-size: 14px;
+    font-weight: normal;
 }
 </style>
