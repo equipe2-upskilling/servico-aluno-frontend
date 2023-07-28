@@ -1,17 +1,16 @@
 <script setup>
-import { onMounted, ref, computed } from 'vue'
-import { useUsersCoursesStore, useAuthStore } from '@/stores'
+import { onMounted, ref, computed, watch, watchEffect } from 'vue'
+import { useUsersCoursesStore, useAuthStore, useCoursesStore } from '@/stores'
 import { useRoute } from 'vue-router'
+import { ItemLesson } from '@/components'
 
 const usersCoursesStore = useUsersCoursesStore()
-
+const idCourse = ref(0)
 const lessons = computed(() => usersCoursesStore.listLessons)
 const calcPercentage = computed(() => usersCoursesStore.calcPercentage)
 const { user } = useAuthStore()
+const courseStore = useCoursesStore()
 
-const course = computed(() => usersCoursesStore.course)
-
-const idCourse = ref(0)
 const certificateAvailable = computed(() => {
   return calcPercentage.value === 100
 })
@@ -25,12 +24,6 @@ function buscarCursoMatriculado(idUser, idCourse) {
   usersCoursesStore.getUserCourse(idUser, idCourse)
 }
 
-function checkAsCompleted(idLesson) {
-  //console.log(idLesson)
-  usersCoursesStore.markLessonCompleted(idLesson)
-  var panel = document.querySelector('#panel-' + idLesson + ' button')
-  panel.click()
-}
 onMounted(() => {
   idCourse.value = useRoute().params.id
 
@@ -46,10 +39,10 @@ const approved = false
       <v-col cols="12" xs="12" sm="12" md="12" lg="8" xl="8" xxl="8">
         <v-container class="ctnr-video">
           <div class="video">
-            <v-img :src="course.image" cover width="100%"></v-img>
+            <v-img src="/assets/imgs/player.png" cover width="100%"></v-img>
           </div>
-          <div class="title">{{ course.name }}</div>
-          <div class="descr" width="100%">{{ course.description }}</div>
+          <div class="title">{{ courseStore.courseName }}</div>
+          <div class="descr" width="100%">{{ courseStore.courseDescription }}</div>
           <v-card id="completed-card" class="completed" v-show="certificateAvailable">
             <div v-show="!approved">
               <div class="msg1">
@@ -114,29 +107,11 @@ const approved = false
                 :id="'panel-' + lesson.id"
               >
                 <v-expansion-panel class="my-2">
-                  <v-expansion-panel-title>
-                    {{ lesson.lessonTitle }}
-                    <template v-slot:actions="{ expanded }">
-                      <v-icon
-                        :color="lesson.isCompleted ? '#2E7D32' : '#EF5350'"
-                        :icon="lesson.isCompleted ? 'mdi-check-circle' : 'mdi-alert-circle'"
-                      ></v-icon>
-                    </template>
-                  </v-expansion-panel-title>
-                  <v-expansion-panel-text>
-                    <div class="content-descr">
-                      {{ lesson.lessonDescription }}
-                    </div>
-                    <v-btn
-                      @click="checkAsCompleted(lesson.id)"
-                      rounded="lg"
-                      color="success"
-                      size="small"
-                      class="ml-auto"
-                    >
-                      Marcar como finalizada
-                    </v-btn>
-                  </v-expansion-panel-text>
+                  <ItemLesson
+                    :lesson="lesson"
+                    :idCourse="idCourse"
+                    :idStudent="user.id"
+                  ></ItemLesson>
                 </v-expansion-panel>
               </v-expansion-panels>
             </div>

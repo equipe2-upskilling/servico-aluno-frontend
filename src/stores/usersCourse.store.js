@@ -30,8 +30,14 @@ export const useUsersCoursesStore = defineStore({
       const completedLessons = this.listLessons.filter((lesson) => lesson.isCompleted)
       this.calcPercentage = Math.round((completedLessons.length / this.listLessons.length) * 100)
     },
-    markLessonCompleted(lessonId) {
+    async markLessonCompleted(lessonId, courseId, studentenId) {
       const lessonToMarkCompleted = this.listLessons.find((lesson) => lesson.id === lessonId)
+      await fetchWrapper.put(`${baseUrl}/UpdateisCompletedStudentCourseLesson`, {
+        lessonId,
+        courseId,
+        studentenId
+      })
+
       if (lessonToMarkCompleted) {
         lessonToMarkCompleted.isCompleted = true
         this.updateCalcPercentage()
@@ -44,17 +50,8 @@ export const useUsersCoursesStore = defineStore({
     },
     async getUserCourse(idUser, idCourse) {
       const userCourse = await fetchWrapper.get(`${baseUrl}/GetStudentCourse/${idUser}/${idCourse}`)
-      debugger
       this.course = userCourse
-      //{
-      //   id: 1,
-      //   name: 'Introduction to JavaScript',
-      //   description: 'A beginner-friendly course on JavaScript programming.',
-      //   duration: '30h',
-      //   //image: 'https://cdn.vuetifyjs.com/images/parallax/material.jpg',
-      //   image: '/assets/imgs/player.png',
-      //   completedLessonsPercentage: 50
-      // }
+
       this.listLessons = [
         {
           id: 1,

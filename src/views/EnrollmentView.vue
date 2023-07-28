@@ -1,18 +1,21 @@
 <script setup>
-import { computed, onMounted, ref } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useCoursesStore } from '../stores'
 import { useRoute } from 'vue-router'
-
+onMounted(() => {
+  buscarCurso()
+  // courseStore.getCourseById(useRoute().params.id)
+})
 const courseStore = useCoursesStore()
 
 const course = computed(() => {
   console.log(courseStore.course)
   return courseStore.course
 })
-onMounted(() => {
+
+function buscarCurso() {
   courseStore.getCourseById(useRoute().params.id)
-  // courseStore.getCourse(useRoute().params.id)
-})
+}
 </script>
 
 <template>

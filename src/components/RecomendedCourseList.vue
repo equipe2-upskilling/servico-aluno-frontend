@@ -1,24 +1,9 @@
 <script setup>
 import { computed, onMounted } from 'vue'
-import CoursesInfoCard from '../components/CoursesInfoCard.vue'
+import CoursesInfoCard from '@/components/CoursesInfoCard.vue'
 import { useCoursesStore } from '../stores'
 
 const courseStore = useCoursesStore()
-
-// const recommendeds = [
-//   { title: 'Docker', teacher: 'Maria', descr: 'teste docker' },
-//   { title: 'Unreal Engine 5.2', teacher: 'Joanna', descr: 'teste ue5' },
-//   { title: 'Testes', teacher: 'Vespucio', descr: 'teste testes...' },
-//   { title: 'Excel', teacher: 'Vespucio', descr: 'teste excel' },
-//   { title: 'Excel', teacher: 'Vespucio', descr: 'teste excel' },
-//   { title: 'Excel', teacher: 'Vespucio', descr: 'teste excel' },
-//   { title: 'Excel', teacher: 'Vespucio', descr: 'teste excel' },
-//   { title: 'Excel', teacher: 'Vespucio', descr: 'teste excel' },
-//   { title: 'Excel', teacher: 'Vespucio', descr: 'teste excel' },
-//   { title: 'Excel', teacher: 'Vespucio', descr: 'teste excel' },
-//   { title: 'Excel', teacher: 'Vespucio', descr: 'teste excel' },
-//   { title: 'Excel', teacher: 'Vespucio', descr: 'teste excel' }
-// ]
 
 const recommendeds = computed(() => {
   console.table(courseStore.courses)
