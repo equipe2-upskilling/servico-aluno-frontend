@@ -32,11 +32,6 @@ export const useUsersCoursesStore = defineStore({
     },
     async markLessonCompleted(lessonId, courseId, studentenId) {
       const lessonToMarkCompleted = this.listLessons.find((lesson) => lesson.id === lessonId)
-      await fetchWrapper.put(`${baseUrl}/UpdateisCompletedStudentCourseLesson`, {
-        lessonId,
-        courseId,
-        studentenId
-      })
 
       if (lessonToMarkCompleted) {
         lessonToMarkCompleted.isCompleted = true
