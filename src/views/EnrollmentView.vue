@@ -1,5 +1,5 @@
 <script setup>
-import { computed, onMounted } from 'vue'
+import { computed, onMounted, ref } from 'vue'
 import { useCoursesStore } from '../stores'
 import { useRoute } from 'vue-router'
 onMounted(() => {
@@ -12,6 +12,8 @@ const course = computed(() => {
   console.log(courseStore.course)
   return courseStore.course
 })
+
+const courseRoute = ref('/pagamento/' + course.courseId)
 
 function buscarCurso() {
   courseStore.getCourseById(useRoute().params.id)
@@ -44,7 +46,7 @@ function buscarCurso() {
           </v-col>
         </v-row>
         <div class="course-price">R$ {{ course.price }}</div>
-        <RouterLink class="text-blue text-decoration-none" to="/pagamento">
+        <RouterLink class="text-blue text-decoration-none" :to="courseRoute">
           <v-btn
             block
             class="text-none mb-4"

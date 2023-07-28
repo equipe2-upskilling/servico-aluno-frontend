@@ -27,7 +27,7 @@ const routes = [
   { path: '/dashboard', component: HomeView },
   { path: '/register', component: RegisterView },
   { path: '/inscricao/:id', component: EnrollmentView },
-  { path: '/pagamento', component: PaymentView },
+  { path: '/pagamento/:id', component: PaymentView },
   { path: '/curso-acesso/:id', component: CourseAccessView },
   { path: '/sobre', component: AboutView }
 ]

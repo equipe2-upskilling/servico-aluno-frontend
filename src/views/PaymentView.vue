@@ -1,5 +1,21 @@
 <script setup>
+  import { computed, onMounted } from 'vue'
+  import { useCoursesStore } from '../stores'
+  import { useRoute } from 'vue-router'
+  onMounted(() => {
+    buscarCurso()
+    // courseStore.getCourseById(useRoute().params.id)
+  })
+  const courseStore = useCoursesStore()
 
+  const course = computed(() => {
+    console.log(courseStore.course)
+    return courseStore.course
+  })
+
+  function buscarCurso() {
+    courseStore.getCourseById(useRoute().params.id)
+  }
 </script>
 
 <template>
@@ -10,9 +26,9 @@
           <div><v-img src="https://cdn.vuetifyjs.com/images/cards/sunshine.jpg" height="200px" width="200px" cover></v-img></div>
         </v-col>
         <v-col cols="12">
-          <h2>Curso tal</h2>
+          <h2>{{ course.name }}</h2>
           <!--div>Descrição</div-->
-          <div class="course-price"><v-text-field readonly variant="outlined" label="Total à pagar" model-value="R$ 50,00"></v-text-field></div>
+          <div class="course-price"><v-text-field readonly variant="outlined" label="Total à pagar" :model-value="course.price"></v-text-field></div>
         </v-col>
       </v-row>
       <v-row class="btn-bar">
