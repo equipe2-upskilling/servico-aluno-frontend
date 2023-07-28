@@ -13,11 +13,10 @@ if (props.acquired) {
   btn_text.value = 'Continuar'
   btn_color.value = 'green-darken-2'
   linkToAccess.value = `/curso-acesso/${props.index}`
-
 } else {
   btn_text.value = 'Inscrever'
   btn_color.value = 'indigo-darken-2'
-  linkToAccess.value = `/inscricao`
+  linkToAccess.value = `/inscricao/${props.index}`
 }
 </script>
 

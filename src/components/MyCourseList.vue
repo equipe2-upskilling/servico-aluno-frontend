@@ -1,6 +1,6 @@
 <script setup>
+import CoursesInfoCard from '../components/CoursesInfoCard.vue'
 import { useAuthStore } from '@/stores'
-import { RecomendedCourseList, MyCourseList } from '@/components'
 
 const authStore = useAuthStore()
 const courses = [
@@ -9,15 +9,38 @@ const courses = [
   { title: 'Vue 3', teacher: 'Mario', descr: 'teste vue 3...' }
 ]
 </script>
-
 <template>
-  <v-container>
-    <RecomendedCourseList></RecomendedCourseList>
-    <MyCourseList></MyCourseList>
-  </v-container>
+  <div class="recently" v-show="authStore.user">
+    <div class="title">
+      <div>
+        <v-icon aria-hidden="false" size="small">mdi-school</v-icon>
+        <span>Cursados recentemente</span>
+      </div>
+      <div class="descr">Continue estudando de onde você parou</div>
+    </div>
+    <v-row class="row-courses">
+      <v-col
+        cols="15"
+        sm="5"
+        md="4"
+        lg="3"
+        xl="2"
+        xxl="1"
+        v-for="(course, index) in courses"
+        :key="course"
+      >
+        <courses-info-card
+          :title="course.title"
+          :teacher="course.teacher"
+          :descr="course.descr"
+          :acquired="true"
+          :index="index"
+        ></courses-info-card>
+      </v-col>
+    </v-row>
+  </div>
 </template>
-
-<style>
+<style scoped>
 .v-container {
   margin: 0px 12px !important;
 }

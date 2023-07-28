@@ -1,36 +1,9 @@
 <script setup>
-import CoursesInfoCard from '../components/CoursesInfoCard.vue'
-const courses = [
-  { title: 'Matrizes', teacher: 'Joe Montana', descr: 'teste matrizes' },
-  { title: '.NET Core', teacher: 'Danilo', descr: 'teste dotnet' },
-  { title: 'Vue 3', teacher: 'Mario', descr: 'teste vue 3...' },
-  { title: 'Vue 2', teacher: 'Mario', descr: 'teste vue 2...' }
-]
+import { MyCourseList } from '@/components'
 </script>
 
 <template>
-  <v-card class="teste">
-    <v-row class="row-courses">
-      <v-col
-        cols="15"
-        sm="5"
-        md="4"
-        lg="3"
-        xl="2"
-        xxl="1"
-        v-for="(course, index) in courses"
-        :key="index"
-      >
-        <courses-info-card
-          :title="course.title"
-          :teacher="course.teacher"
-          :descr="course.descr"
-          :acquired="true"
-          :index="index"
-        ></courses-info-card>
-      </v-col>
-    </v-row>
-  </v-card>
+  <MyCourseList></MyCourseList>
 </template>
 
 <style>

@@ -21,7 +21,7 @@ function onSubmit() {
   if (!form.value) return
   const authStore = useAuthStore()
 
-  return authStore.login(username.value, password.value).catch((error) => console.error(error))
+  authStore.login(username.value, password.value).catch((error) => console.error(error))
 }
 </script>
 

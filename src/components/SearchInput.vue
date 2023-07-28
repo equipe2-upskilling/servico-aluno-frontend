@@ -1,7 +1,7 @@
 <script setup>
     import router from '@/router'
     function onClick() {
-        //console.log('pesquisar');
+
         router.push('busca');
     }
 </script>

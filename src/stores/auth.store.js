@@ -17,10 +17,20 @@ export const useAuthStore = defineStore({
   actions: {
     async login(username, password) {
       const user = await fetchWrapper.post(`${baseUrl}/login`, { username, password })
+      this.user = user
+      
+      const userInfo = await fetchWrapper.get(
+        `https://localhost:7264/GetStudentByEmail?username=${user.simpleLogged.email}`
+      )
 
-      this.user = user.simpleLogged
+      const userObjt = {
+        username: userInfo.username,
+        id: userInfo.studentenId,
+        token: user.token,
+        name: userInfo.name
+      }
 
-      localStorage.setItem('user', JSON.stringify(user.token))
+      localStorage.setItem('user', JSON.stringify(userObjt))
 
       router.push(this.returnUrl || '/')
       //router.go()

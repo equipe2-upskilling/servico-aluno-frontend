@@ -1,12 +1,19 @@
 <script setup>
-import { ref } from 'vue'
+import { computed, ref } from 'vue'
 
 import { useAuthStore } from './stores'
 import { reactive } from 'vue'
 import SearchInput from './components/SearchInput.vue'
 
 const authStore = useAuthStore()
+
 const drawer = ref(null)
+const email = computed(() => {
+  return authStore.user?.username ?? ''
+})
+const name = computed(() => {
+  return authStore.user?.name ?? ''
+})
 
 const items = reactive([
   { title: 'Pagina inicial', icon: 'mdi-home', to: '/', visible: true },
@@ -36,8 +43,8 @@ const items = reactive([
         <v-list-item
           v-show="authStore.user"
           prepend-avatar="https://avatarfiles.alphacoders.com/261/thumb-261943.jpg"
-          title="Homer Simpson"
-          subtitle="duh@gmail.com"
+          :title="name"
+          :subtitle="email"
         ></v-list-item>
         <div style="text-align: center; padding: 6px">
           <v-btn prepend-icon="mdi-logout" @click="authStore.logout()"> Sair </v-btn>
