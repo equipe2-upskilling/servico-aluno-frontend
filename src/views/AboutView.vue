@@ -4,7 +4,7 @@
         { img: '/assets/imgs/juliano.jpg', name: 'JULIANO SOARES DE CEZARO' },
         { img: '/assets/imgs/matheus.jpg', name: 'MATHEUS MATOS MOREIRA' },
         { img: '/assets/imgs/raissa.png', name: 'RAISSA ARRUDA DE ARAÚJO' },
-        { img: 'https://cdn.vuetifyjs.com/images/cards/sunshine.jpg', name: 'RICARDO DA SILVA MENDES' },
+        { img: '/assets/imgs/ricardo.jpg', name: 'RICARDO DA SILVA MENDES' },
         { img: '/assets/imgs/vitor.jpg', name: 'VITOR BANDEIRA GONÇALVES' },
     ];
 </script>
@@ -24,7 +24,7 @@
             <v-col v-for="person in squad" style="max-width: 180px">
                 <v-container>
                     <v-row style="margin-bottom: -26px">
-                        <v-col><v-img :src="person.img" height="180px" width="180px" cover style="border-radius: 10px"></v-img></v-col>
+                        <v-col><v-img :src="person.img" height="180px" width="180px" cover style="border-radius: 10px; border: 3px solid #DDD"></v-img></v-col>
                     </v-row>
                     <v-row>
                         <v-col style="font-weight: bold; font-size: 14px"> {{ person.name }} </v-col>
