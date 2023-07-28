@@ -26,6 +26,7 @@ const items = reactive([
     visible: !!authStore.user
   },
   { title: 'Conta', icon: 'mdi-account-edit', to: '/conta', visible: !!authStore.user },
+  { title: 'Sobre', icon: 'mdi-information', to: '/sobre', visible: !!authStore.user },
   { title: 'Entrar', icon: 'mdi-login', to: '/login', visible: !authStore.user }
 ])
 </script>

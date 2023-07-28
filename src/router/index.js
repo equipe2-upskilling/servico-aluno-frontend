@@ -12,7 +12,8 @@ import {
   SearchView,
   CourseAccessView,
   EnrollmentView,
-  PaymentView
+  PaymentView,
+  AboutView
 } from '@/views'
 
 const routes = [
@@ -27,7 +28,8 @@ const routes = [
   { path: '/register', component: RegisterView },
   { path: '/inscricao/:id', component: EnrollmentView },
   { path: '/pagamento', component: PaymentView },
-  { path: '/curso-acesso/:id', component: CourseAccessView }
+  { path: '/curso-acesso/:id', component: CourseAccessView },
+  { path: '/sobre', component: AboutView }
 ]
 
 const router = createRouter({
